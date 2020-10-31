@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KeyVaultManager.Models
 {
-    public class KeyValueModel
+    public class DataGridModel
     {
         public string key { get; set; }
         public string value { get; set; }

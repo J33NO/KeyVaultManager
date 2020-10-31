@@ -12,14 +12,14 @@ namespace KeyVaultManager
     public class Convert
     {
 
-        public static List<KeyValueModel> ConvertConfig(ExeConfigurationFileMap xml)
+        public static List<DataGridModel> ConvertConfig(ExeConfigurationFileMap xml)
         {
-            List<KeyValueModel> kvp = new List<KeyValueModel>();
+            List<DataGridModel> kvp = new List<DataGridModel>();
             Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(xml, ConfigurationUserLevel.None);
             KeyValueConfigurationCollection settings = configuration.AppSettings.Settings;
             foreach (KeyValueConfigurationElement item in settings)
             {
-                KeyValueModel xmlValues = new KeyValueModel();
+                DataGridModel xmlValues = new DataGridModel();
                 xmlValues.key = item.Key.ToString();
                 xmlValues.value = item.Value.ToString();
                 xmlValues.isSelected = false;
