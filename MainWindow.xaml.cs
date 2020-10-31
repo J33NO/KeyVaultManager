@@ -37,7 +37,7 @@ namespace KeyVaultManager
             {
                 ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap();
                 configFileMap.ExeConfigFilename = txtUri.Text;
-                List<KeyValueModel> kvps = Convert.ConvertConfig(configFileMap);
+                List<DataGridModel> kvps = Convert.ConvertConfig(configFileMap);
                 dataGridConfigValues.ItemsSource = kvps;
             }
             else if(uri.Contains(".json"))
@@ -46,10 +46,10 @@ namespace KeyVaultManager
                 {
                     string json = r.ReadToEnd();
                     List<KeyVaultModel> keyVaultValues = JsonConvert.DeserializeObject<List<KeyVaultModel>>(json);
-                    List<KeyValueModel> keyValues = new List<KeyValueModel>();
+                    List<DataGridModel> keyValues = new List<DataGridModel>();
                     foreach(KeyVaultModel item in keyVaultValues)
                     {
-                        KeyValueModel kvm = new KeyValueModel();
+                        DataGridModel kvm = new DataGridModel();
                         kvm.key = item.secretName;
                         kvm.value = item.secretValue;
                         keyValues.Add(kvm);
@@ -66,7 +66,7 @@ namespace KeyVaultManager
         private void btnExportJson_Click(object sender, RoutedEventArgs e)
         {
             List<KeyVaultModel> keyVaults = new List<KeyVaultModel>();
-            foreach(KeyValueModel keyPair in dataGridConfigValues.ItemsSource)
+            foreach(DataGridModel keyPair in dataGridConfigValues.ItemsSource)
             {
                 if(keyPair.isSelected == true)
                 {
@@ -86,6 +86,36 @@ namespace KeyVaultManager
             {
                 //TODO: handle no values being selected/checked.
             }
+        }
+
+        private void btnReplace_Click(object sender, RoutedEventArgs e)
+        {
+            string findValue = txtFind.Text;
+            string replaceValue = txtReplace.Text;
+            List<DataGridModel> newValues = new List<DataGridModel>();
+            foreach(DataGridModel dgm in dataGridConfigValues.ItemsSource)
+            {
+                if(dgm.isSelected == true)
+                {
+                    if (dgm.value.Contains(findValue))
+                    {
+                        dgm.value = dgm.value.Replace(findValue, replaceValue);
+                        DataGridModel newDataGridModel = new DataGridModel();
+                        newDataGridModel = dgm;
+                        newValues.Add(newDataGridModel);
+                    }
+                    else
+                    {
+                        newValues.Add(dgm);
+                    }
+                }
+                else
+                {
+                    newValues.Add(dgm);
+                }
+            }
+            dataGridConfigValues.ItemsSource = newValues;
+            dataGridConfigValues.Items.Refresh();
         }
     }
 }

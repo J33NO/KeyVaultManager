@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KeyVaultManager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="662" Width="957">
     <Grid>
         <DataGrid x:Name="dataGridConfigValues" Margin="26,206,30,52" GridLinesVisibility="Horizontal" AutoGenerateColumns="False">
             <DataGrid.Columns>
@@ -22,8 +22,11 @@
         </DataGrid>
         <TextBox x:Name="txtUri" HorizontalAlignment="Left" Margin="26,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="652" AutomationProperties.HelpText="" Text=""/>
         <Label x:Name="lblConfigUri" Content="Enter URI of config/json file:" HorizontalAlignment="Left" Margin="26,14,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnLoad" Content="Load" HorizontalAlignment="Left" Margin="690,38,0,0" VerticalAlignment="Top" Width="80" Click="btnLoad_Click"/>
-        <Button x:Name="btnExportJson" Content="Export Json" HorizontalAlignment="Left" Margin="690,397,0,0" VerticalAlignment="Top" Width="80" Click="btnExportJson_Click"/>
+        <Button x:Name="btnLoad" Content="Load" HorizontalAlignment="Left" Margin="688,38,0,0" VerticalAlignment="Top" Width="106" Click="btnLoad_Click"/>
+        <Button x:Name="btnExportJson" Content="Export Json" HorizontalAlignment="Left" Margin="519,175,0,0" VerticalAlignment="Top" Width="106" Click="btnExportJson_Click"/>
         <Label x:Name="lblStatus" Content="Status:" HorizontalAlignment="Left" Margin="27,59,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtFind" HorizontalAlignment="Left" Margin="26,153,0,0" Text="Find:" TextWrapping="Wrap" VerticalAlignment="Top" Width="348"/>
+        <TextBox x:Name="txtReplace" HorizontalAlignment="Left" Margin="27,176,0,0" Text="Replace:" TextWrapping="Wrap" VerticalAlignment="Top" Width="347"/>
+        <Button x:Name="btnReplace" Content="Replace" HorizontalAlignment="Left" Margin="398,175,0,0" VerticalAlignment="Top" Width="106" Click="btnReplace_Click"/>
     </Grid>
 </Window>
