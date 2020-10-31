@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace KeyVaultManager.Models
+namespace KeyVaultManager
 {
     public class KeyVaultModel
     {
         public string secretName { get; set; }
         public string secretValue { get; set; }
-        public  bool isSelected { get; set; }
     }
-
 }
