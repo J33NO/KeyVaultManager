@@ -32,43 +32,16 @@ namespace KeyVaultManager
         private void btnLoad_Click(object sender, RoutedEventArgs e)
         {
             string uri = txtUri.Text.ToLower();
-
-            if(uri.Contains(".config"))
-            {
-                ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap();
-                configFileMap.ExeConfigFilename = txtUri.Text;
-                List<DataGridModel> kvps = Convert.ConvertConfig(configFileMap);
-                dataGridConfigValues.ItemsSource = kvps;
-            }
-            else if(uri.Contains(".json"))
-            {
-                using (StreamReader r = new StreamReader(txtUri.Text))
-                {
-                    string json = r.ReadToEnd();
-                    List<KeyVaultModel> keyVaultValues = JsonConvert.DeserializeObject<List<KeyVaultModel>>(json);
-                    List<DataGridModel> keyValues = new List<DataGridModel>();
-                    foreach(KeyVaultModel item in keyVaultValues)
-                    {
-                        DataGridModel kvm = new DataGridModel();
-                        kvm.key = item.secretName;
-                        kvm.value = item.secretValue;
-                        keyValues.Add(kvm);
-                    }
-                    dataGridConfigValues.ItemsSource = keyValues;
-                }
-            }
-            else
-            {
-
-            }
+            List<DataGridModel> dataGridValues = KeyVault.LoadFile(uri, txtUri);
+            dataGridConfigValues.ItemsSource = dataGridValues;
         }
 
         private void btnExportJson_Click(object sender, RoutedEventArgs e)
         {
             List<KeyVaultModel> keyVaults = new List<KeyVaultModel>();
-            foreach(DataGridModel keyPair in dataGridConfigValues.ItemsSource)
+            foreach (DataGridModel keyPair in dataGridConfigValues.ItemsSource)
             {
-                if(keyPair.isSelected == true)
+                if (keyPair.isSelected == true)
                 {
                     KeyVaultModel keyVault = new KeyVaultModel();
                     keyVault.secretName = keyPair.key;
@@ -77,15 +50,7 @@ namespace KeyVaultManager
                 }
             }
 
-            if(keyVaults.Count > 0)
-            {
-                string json = Convert.ConvertDictionaryToJson(keyVaults);
-                bool saveSuccessfully = Convert.SaveJson(json);
-            }
-            else
-            {
-                //TODO: handle no values being selected/checked.
-            }
+            KeyVault.Export(keyVaults);
         }
 
         private void btnReplace_Click(object sender, RoutedEventArgs e)
@@ -115,6 +80,54 @@ namespace KeyVaultManager
                 }
             }
             dataGridConfigValues.ItemsSource = newValues;
+            dataGridConfigValues.Items.Refresh();
+        }
+
+        private void btnBrowse_Click(object sender, RoutedEventArgs e)
+        {
+            string uri = KeyVault.BrowseFile();
+            List<DataGridModel> dataGridValues = KeyVault.LoadFile(uri, txtUri);
+            dataGridConfigValues.ItemsSource = dataGridValues;
+        }
+
+        private void FindTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            tb.Text = string.Empty;
+            tb.GotFocus -= FindTextBox_GotFocus;
+        }
+
+        private void ReplaceTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            tb.Text = string.Empty;
+            tb.GotFocus -= ReplaceTextBox_GotFocus;
+        }
+
+        private void FindTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            if (tb.Text == "")
+            {
+                tb.Text = "Find:";
+            }
+        }
+
+        private void ReplaceTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            if (tb.Text == "")
+            {
+                tb.Text = "Replace:";
+            }
+        }
+
+        private void btnClearAll_Click(object sender, RoutedEventArgs e)
+        {
+            txtUri.Text = "";
+            txtFind.Text = "";
+            txtReplace.Text = "";
+            dataGridConfigValues.ItemsSource = null;
             dataGridConfigValues.Items.Refresh();
         }
     }
