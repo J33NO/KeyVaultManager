@@ -32,25 +32,60 @@ namespace KeyVaultManager
         private void btnLoad_Click(object sender, RoutedEventArgs e)
         {
             string uri = txtUri.Text.ToLower();
-            List<DataGridModel> dataGridValues = KeyVault.LoadFile(uri, txtUri);
-            dataGridConfigValues.ItemsSource = dataGridValues;
+            if (uri != "")
+            {
+                try
+                {
+                    List<DataGridModel> dataGridValues = KeyVault.LoadFile(uri, txtUri);
+                    dataGridConfigValues.ItemsSource = dataGridValues;
+                    lblStatusMessage.Foreground = new SolidColorBrush(Colors.Green);
+                    lblStatusMessage.Content = "Loaded Values Successfully.";
+                }
+                catch (Exception ex)
+                {
+                    lblStatusMessage.Content = ex.Message;
+                }
+            }
         }
 
         private void btnExportJson_Click(object sender, RoutedEventArgs e)
         {
             List<KeyVaultModel> keyVaults = new List<KeyVaultModel>();
-            foreach (DataGridModel keyPair in dataGridConfigValues.ItemsSource)
+
+            try
             {
-                if (keyPair.isSelected == true)
+                if (dataGridConfigValues.ItemsSource != null)
                 {
-                    KeyVaultModel keyVault = new KeyVaultModel();
-                    keyVault.secretName = keyPair.key;
-                    keyVault.secretValue = keyPair.value;
-                    keyVaults.Add(keyVault);
+                    foreach (DataGridModel keyPair in dataGridConfigValues.ItemsSource)
+                    {
+                        if (keyPair.isSelected == true)
+                        {
+                            KeyVaultModel keyVault = new KeyVaultModel();
+                            keyVault.secretName = keyPair.key;
+                            keyVault.secretValue = keyPair.value;
+                            keyVaults.Add(keyVault);
+                        }
+                    }
+                    if (keyVaults.Count > 0)
+                    {
+                        KeyVault.Export(keyVaults);
+                        lblStatusMessage.Foreground = new SolidColorBrush(Colors.Green);
+                        lblStatusMessage.Content = "Exported Successfully.";
+                    }
+                    else
+                    {
+                        lblStatusMessage.Content = "Must select at least one value pair to export.";
+                    }
+                }
+                else
+                {
+                    lblStatusMessage.Content = "No values to export.";
                 }
             }
-
-            KeyVault.Export(keyVaults);
+            catch (Exception ex)
+            {
+                lblStatusMessage.Content = ex.Message;
+            }
         }
 
         private void btnReplace_Click(object sender, RoutedEventArgs e)
@@ -58,29 +93,39 @@ namespace KeyVaultManager
             string findValue = txtFind.Text;
             string replaceValue = txtReplace.Text;
             List<DataGridModel> newValues = new List<DataGridModel>();
-            foreach(DataGridModel dgm in dataGridConfigValues.ItemsSource)
+
+            try
             {
-                if(dgm.isSelected == true)
+                foreach (DataGridModel dgm in dataGridConfigValues.ItemsSource)
                 {
-                    if (dgm.value.Contains(findValue))
+                    if (dgm.isSelected == true)
                     {
-                        dgm.value = dgm.value.Replace(findValue, replaceValue);
-                        DataGridModel newDataGridModel = new DataGridModel();
-                        newDataGridModel = dgm;
-                        newValues.Add(newDataGridModel);
+                        if (dgm.value.Contains(findValue))
+                        {
+                            dgm.value = dgm.value.Replace(findValue, replaceValue);
+                            DataGridModel newDataGridModel = new DataGridModel();
+                            newDataGridModel = dgm;
+                            newValues.Add(newDataGridModel);
+                        }
+                        else
+                        {
+                            newValues.Add(dgm);
+                        }
                     }
                     else
                     {
                         newValues.Add(dgm);
                     }
                 }
-                else
-                {
-                    newValues.Add(dgm);
-                }
+                dataGridConfigValues.ItemsSource = newValues;
+                dataGridConfigValues.Items.Refresh();
+                lblStatusMessage.Content = "";
             }
-            dataGridConfigValues.ItemsSource = newValues;
-            dataGridConfigValues.Items.Refresh();
+            catch (Exception ex)
+            {
+                lblStatusMessage.Content = ex.Message;
+            }
+
         }
 
         private void btnBrowse_Click(object sender, RoutedEventArgs e)
@@ -88,6 +133,7 @@ namespace KeyVaultManager
             string uri = KeyVault.BrowseFile();
             List<DataGridModel> dataGridValues = KeyVault.LoadFile(uri, txtUri);
             dataGridConfigValues.ItemsSource = dataGridValues;
+            lblStatusMessage.Content = "";
         }
 
         private void FindTextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -127,6 +173,7 @@ namespace KeyVaultManager
             txtUri.Text = "";
             txtFind.Text = "";
             txtReplace.Text = "";
+            lblStatusMessage.Content = "";
             dataGridConfigValues.ItemsSource = null;
             dataGridConfigValues.Items.Refresh();
         }
