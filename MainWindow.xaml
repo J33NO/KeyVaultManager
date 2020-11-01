@@ -20,13 +20,15 @@
                 <DataGridTextColumn Header="Secret Value" Width="300" Binding="{Binding value}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="txtUri" HorizontalAlignment="Left" Margin="26,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="652" AutomationProperties.HelpText="" Text=""/>
-        <Label x:Name="lblConfigUri" Content="Enter URI of config/json file:" HorizontalAlignment="Left" Margin="26,14,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Button x:Name="btnLoad" Content="Load" HorizontalAlignment="Left" Margin="688,38,0,0" VerticalAlignment="Top" Width="106" Click="btnLoad_Click" Background="#FF3F3F46" Foreground="White" BorderBrush="#FF171717"/>
-        <Button x:Name="btnExportJson" Content="Export Json" HorizontalAlignment="Left" Margin="519,175,0,0" VerticalAlignment="Top" Width="106" Click="btnExportJson_Click" Foreground="White" Background="#FF3F3F46" BorderBrush="#FF171717"/>
-        <Label x:Name="lblStatus" Content="Status:" HorizontalAlignment="Left" Margin="27,59,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="txtFind" HorizontalAlignment="Left" Margin="26,153,0,0" Text="Find:" TextWrapping="Wrap" VerticalAlignment="Top" Width="348"/>
-        <TextBox x:Name="txtReplace" HorizontalAlignment="Left" Margin="27,176,0,0" Text="Replace:" TextWrapping="Wrap" VerticalAlignment="Top" Width="347"/>
-        <Button x:Name="btnReplace" Content="Replace" HorizontalAlignment="Left" Margin="398,175,0,0" VerticalAlignment="Top" Width="106" Click="btnReplace_Click" Background="#FF3F3F46" Foreground="#FFF4F5F7" BorderBrush="#FF171717"/>
+        <TextBox x:Name="txtUri" HorizontalAlignment="Left" Margin="26,40,0,0" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" Width="768" AutomationProperties.HelpText="" Text="" AllowDrop="True" Height="42"/>
+        <Label x:Name="lblConfigUri" Content="Select the location of config/json file or paste KeyVault json directly and click &quot;Load&quot;." HorizontalAlignment="Left" Margin="26,14,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Button x:Name="btnLoad" Content="Load" HorizontalAlignment="Left" Margin="821,62,0,0" VerticalAlignment="Top" Width="106" Click="btnLoad_Click" Background="#FF3F3F46" Foreground="White" BorderBrush="#FF171717" Height="20"/>
+        <Button x:Name="btnExportJson" Content="Export Json" HorizontalAlignment="Left" Margin="691,174,0,0" VerticalAlignment="Top" Width="106" Click="btnExportJson_Click" Foreground="White" Background="#FF3F3F46" BorderBrush="#FF171717"/>
+        <Label x:Name="lblStatus" Content="Status:" HorizontalAlignment="Left" Margin="27,80,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="txtFind" HorizontalAlignment="Left" Margin="26,153,0,0" Text="Find:" TextWrapping="Wrap" VerticalAlignment="Top" Width="509" GotFocus="FindTextBox_GotFocus" LostFocus="FindTextBox_LostFocus"/>
+        <TextBox x:Name="txtReplace" HorizontalAlignment="Left" Margin="27,176,0,0" Text="Replace:" TextWrapping="Wrap" VerticalAlignment="Top" Width="508" GotFocus="ReplaceTextBox_GotFocus" LostFocus="ReplaceTextBox_LostFocus"/>
+        <Button x:Name="btnReplace" Content="Replace" HorizontalAlignment="Left" Margin="556,174,0,0" VerticalAlignment="Top" Width="106" Click="btnReplace_Click" Background="#FF3F3F46" Foreground="#FFF4F5F7" BorderBrush="#FF171717" Height="20"/>
+        <Button x:Name="btnBrowse" Content="Browse" HorizontalAlignment="Left" Margin="821,40,0,0" VerticalAlignment="Top" Width="106" Background="#FF3F3F46" Foreground="#FFF0F0F0" BorderBrush="#FF171717" Click="btnBrowse_Click" Height="20"/>
+        <Button x:Name="btnClearAll" Content="Clear All" HorizontalAlignment="Left" Margin="821,174,0,0" VerticalAlignment="Top" Width="106" Height="20" Background="#FF3F3F46" BorderBrush="#FF171717" Foreground="#FFF0F0F0" Click="btnClearAll_Click"/>
     </Grid>
 </Window>
