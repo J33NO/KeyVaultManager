@@ -116,60 +116,60 @@ namespace KeyVaultManager
 
         public static List<DataGridModel> LoadFile(string uri, TextBox txtUri)
         {
-            if (uri.Contains(".config"))
+            try
             {
-                ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap();
-                configFileMap.ExeConfigFilename = txtUri.Text;
-                List<DataGridModel> keyValues = KeyVault.ConvertConfig(configFileMap);
-                return keyValues;
-            }
-            else if (uri.Contains(".json"))
-            {
-                using (StreamReader r = new StreamReader(txtUri.Text))
+                if (uri.Contains(".config"))
                 {
-                    string json = r.ReadToEnd();
-                    List<KeyVaultModel> keyVaultValues = JsonConvert.DeserializeObject<List<KeyVaultModel>>(json);
-                    List<DataGridModel> keyValues = new List<DataGridModel>();
-                    foreach (KeyVaultModel item in keyVaultValues)
+                    ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap();
+                    configFileMap.ExeConfigFilename = txtUri.Text;
+                    List<DataGridModel> keyValues = KeyVault.ConvertConfig(configFileMap);
+                    return keyValues;
+                }
+                else if (uri.Contains(".json"))
+                {
+                    using (StreamReader r = new StreamReader(uri))
                     {
-                        DataGridModel kvm = new DataGridModel();
-                        kvm.key = item.secretName;
-                        kvm.value = item.secretValue;
-                        keyValues.Add(kvm);
+                        string json = r.ReadToEnd();
+                        List<KeyVaultModel> keyVaultValues = JsonConvert.DeserializeObject<List<KeyVaultModel>>(json);
+                        List<DataGridModel> keyValues = new List<DataGridModel>();
+                        foreach (KeyVaultModel item in keyVaultValues)
+                        {
+                            DataGridModel kvm = new DataGridModel();
+                            kvm.key = item.secretName;
+                            kvm.value = item.secretValue;
+                            keyValues.Add(kvm);
+                        }
+                        return keyValues;
+                    }
+                }
+                else
+                {
+                    List<DataGridModel> keyValues = new List<DataGridModel>();
+                    bool validJson = KeyVault.IsValidJson(txtUri.Text);
+                    if (validJson)
+                    {
+                        List<KeyVaultModel> keyVaultValues = JsonConvert.DeserializeObject<List<KeyVaultModel>>(txtUri.Text);
+                        foreach (KeyVaultModel item in keyVaultValues)
+                        {
+                            DataGridModel kvm = new DataGridModel();
+                            kvm.key = item.secretName;
+                            kvm.value = item.secretValue;
+                            keyValues.Add(kvm);
+                        }
                     }
                     return keyValues;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                List<DataGridModel> keyValues = new List<DataGridModel>();
-                bool validJson = KeyVault.IsValidJson(txtUri.Text);
-                if (validJson)
-                {
-                    List<KeyVaultModel> keyVaultValues = JsonConvert.DeserializeObject<List<KeyVaultModel>>(txtUri.Text);
-                    foreach (KeyVaultModel item in keyVaultValues)
-                    {
-                        DataGridModel kvm = new DataGridModel();
-                        kvm.key = item.secretName;
-                        kvm.value = item.secretValue;
-                        keyValues.Add(kvm);
-                    }
-                }
-                return keyValues;
+                throw ex;
             }
         }
 
         public static void Export(List<KeyVaultModel> keyVaults)
         {
-            if (keyVaults.Count > 0)
-            {
-                string json = KeyVault.ConvertDictionaryToJson(keyVaults);
-                bool saveSuccessfully = KeyVault.SaveJson(json);
-            }
-            else
-            {
-                //TODO: handle no values being selected/checked.
-            }
+            string json = KeyVault.ConvertDictionaryToJson(keyVaults);
+            bool saveSuccessfully = KeyVault.SaveJson(json);
         }
     }
 }
