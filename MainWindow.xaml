@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="KeyVault Manager - Arcoro" Height="662" Width="957">
     <Grid Background="#FF2D2D30">
-        <DataGrid x:Name="dataGridConfigValues" Margin="26,206,30,52" GridLinesVisibility="Horizontal" AutoGenerateColumns="False">
+        <DataGrid x:Name="dataGridConfigValues" Margin="26,206,30,25" GridLinesVisibility="Horizontal" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Select" Width="50">
                     <DataGridTemplateColumn.CellTemplate>
@@ -23,7 +23,7 @@
         <TextBox x:Name="txtUri" HorizontalAlignment="Left" Margin="26,40,0,0" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" Width="768" AutomationProperties.HelpText="" Text="" AllowDrop="True" Height="42"/>
         <Label x:Name="lblConfigUri" Content="Select config/json file or paste KeyVault json directly into textbox and click &quot;Load&quot;" HorizontalAlignment="Left" Margin="26,14,0,0" VerticalAlignment="Top" Foreground="White"/>
         <Button x:Name="btnLoad" Content="Load" HorizontalAlignment="Left" Margin="821,62,0,0" VerticalAlignment="Top" Width="106" Click="btnLoad_Click" Background="#FF3F3F46" Foreground="White" BorderBrush="#FF171717" Height="20"/>
-        <Button x:Name="btnExportJson" Content="Export Json" HorizontalAlignment="Left" Margin="688,156,0,0" VerticalAlignment="Top" Width="106" Click="btnExportJson_Click" Foreground="White" Background="#FF3F3F46" BorderBrush="#FF171717"/>
+        <Button x:Name="btnExportJson" Content="Export Json" HorizontalAlignment="Left" Margin="688,156,0,0" VerticalAlignment="Top" Width="106" Click="btnExportJson_Click" Foreground="White" Background="#FF3F3F46" BorderBrush="#FF1799BF"/>
         <Label x:Name="lblStatus" Content="Status:" HorizontalAlignment="Left" Margin="27,80,0,0" VerticalAlignment="Top" Foreground="White"/>
         <TextBox x:Name="txtFind" HorizontalAlignment="Left" Margin="26,133,0,0" Text="Find:" TextWrapping="Wrap" VerticalAlignment="Top" Width="509" GotFocus="FindTextBox_GotFocus" LostFocus="FindTextBox_LostFocus"/>
         <TextBox x:Name="txtReplace" HorizontalAlignment="Left" Margin="27,158,0,0" Text="Replace:" TextWrapping="Wrap" VerticalAlignment="Top" Width="508" GotFocus="ReplaceTextBox_GotFocus" LostFocus="ReplaceTextBox_LostFocus"/>
