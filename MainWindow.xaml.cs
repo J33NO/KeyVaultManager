@@ -134,9 +134,17 @@ namespace KeyVaultManager
         private void btnBrowse_Click(object sender, RoutedEventArgs e)
         {
             string uri = KeyVault.BrowseFile();
-            List<DataGridModel> dataGridValues = KeyVault.LoadFile(uri, txtUri);
-            dataGridConfigValues.ItemsSource = dataGridValues;
-            lblStatusMessage.Content = "";
+            try
+            {
+                List<DataGridModel> dataGridValues = KeyVault.LoadFile(uri, txtUri);
+                dataGridConfigValues.ItemsSource = dataGridValues;
+                lblStatusMessage.Content = "";
+            }
+            catch (Exception ex)
+            {
+                lblStatusMessage.Foreground = new SolidColorBrush(Colors.Red);
+                lblStatusMessage.Content = ex.Message;
+            }
         }
 
         private void FindTextBox_GotFocus(object sender, RoutedEventArgs e)
