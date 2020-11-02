@@ -75,11 +75,13 @@ namespace KeyVaultManager
                     }
                     else
                     {
+                        lblStatusMessage.Foreground = new SolidColorBrush(Colors.Red);
                         lblStatusMessage.Content = "Must select at least one value pair to export.";
                     }
                 }
                 else
                 {
+                    lblStatusMessage.Foreground = new SolidColorBrush(Colors.Red);
                     lblStatusMessage.Content = "No values to export.";
                 }
             }
