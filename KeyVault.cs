@@ -38,9 +38,9 @@ namespace KeyVaultManager
                 string json = JsonConvert.SerializeObject(kvms, Newtonsoft.Json.Formatting.Indented);
                 return json;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -172,8 +172,15 @@ namespace KeyVaultManager
 
         public static void Export(List<KeyVaultModel> keyVaults)
         {
-            string json = KeyVault.ConvertDictionaryToJson(keyVaults);
-            bool saveSuccessfully = KeyVault.SaveJson(json);
+            try
+            {
+                string json = KeyVault.ConvertDictionaryToJson(keyVaults);
+                bool saveSuccessfully = KeyVault.SaveJson(json);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
