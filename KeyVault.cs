@@ -142,7 +142,7 @@ namespace KeyVaultManager
                         return keyValues;
                     }
                 }
-                else
+                else //if not .config file, check to see if uri pasted is json.
                 {
                     List<DataGridModel> keyValues = new List<DataGridModel>();
                     bool validJson = KeyVault.IsValidJson(txtUri.Text);
@@ -156,6 +156,10 @@ namespace KeyVaultManager
                             kvm.value = item.secretValue;
                             keyValues.Add(kvm);
                         }
+                    }
+                    else
+                    {
+                        throw new Exception("Invalid format");
                     }
                     return keyValues;
                 }

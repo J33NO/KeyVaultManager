@@ -43,6 +43,7 @@ namespace KeyVaultManager
                 }
                 catch (Exception ex)
                 {
+                    lblStatusMessage.Foreground = new SolidColorBrush(Colors.Red);
                     lblStatusMessage.Content = ex.Message;
                 }
             }
@@ -84,6 +85,7 @@ namespace KeyVaultManager
             }
             catch (Exception ex)
             {
+                lblStatusMessage.Foreground = new SolidColorBrush(Colors.Red);
                 lblStatusMessage.Content = ex.Message;
             }
         }
@@ -123,6 +125,7 @@ namespace KeyVaultManager
             }
             catch (Exception ex)
             {
+                lblStatusMessage.Foreground = new SolidColorBrush(Colors.Red);
                 lblStatusMessage.Content = ex.Message;
             }
 
@@ -171,34 +174,41 @@ namespace KeyVaultManager
         private void btnClearAll_Click(object sender, RoutedEventArgs e)
         {
             txtUri.Text = "";
-            txtFind.Text = "";
-            txtReplace.Text = "";
+            txtFind.Text = "Find:";
+            txtReplace.Text = "Replace:";
             lblStatusMessage.Content = "";
+            chkSelectAll.IsChecked = false;
             dataGridConfigValues.ItemsSource = null;
             dataGridConfigValues.Items.Refresh();
         }
 
         private void chkSelectAll_Checked(object sender, RoutedEventArgs e)
         {
-            foreach(DataGridModel item in dataGridConfigValues.ItemsSource)
+            if(dataGridConfigValues.Items.Count > 0)
             {
-                if(item.isSelected == false)
+                foreach (DataGridModel item in dataGridConfigValues.ItemsSource)
                 {
-                    item.isSelected = true;
+                    if (item.isSelected == false)
+                    {
+                        item.isSelected = true;
+                    }
+                    dataGridConfigValues.Items.Refresh();
                 }
-                dataGridConfigValues.Items.Refresh();
             }
         }
 
         private void chkSelectAll_Unchecked(object sender, RoutedEventArgs e)
         {
-            foreach (DataGridModel item in dataGridConfigValues.ItemsSource)
+            if (dataGridConfigValues.Items.Count > 0)
             {
-                if (item.isSelected == true)
+                foreach (DataGridModel item in dataGridConfigValues.ItemsSource)
                 {
-                    item.isSelected = false;
+                    if (item.isSelected == true)
+                    {
+                        item.isSelected = false;
+                    }
+                    dataGridConfigValues.Items.Refresh();
                 }
-                dataGridConfigValues.Items.Refresh();
             }
         }
     }
