@@ -177,5 +177,29 @@ namespace KeyVaultManager
             dataGridConfigValues.ItemsSource = null;
             dataGridConfigValues.Items.Refresh();
         }
+
+        private void chkSelectAll_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach(DataGridModel item in dataGridConfigValues.ItemsSource)
+            {
+                if(item.isSelected == false)
+                {
+                    item.isSelected = true;
+                }
+                dataGridConfigValues.Items.Refresh();
+            }
+        }
+
+        private void chkSelectAll_Unchecked(object sender, RoutedEventArgs e)
+        {
+            foreach (DataGridModel item in dataGridConfigValues.ItemsSource)
+            {
+                if (item.isSelected == true)
+                {
+                    item.isSelected = false;
+                }
+                dataGridConfigValues.Items.Refresh();
+            }
+        }
     }
 }
