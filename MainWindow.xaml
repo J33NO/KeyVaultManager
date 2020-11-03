@@ -20,17 +20,19 @@
                 <DataGridTextColumn Header="Secret Value" Width="300" Binding="{Binding value}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="txtUri" HorizontalAlignment="Left" Margin="26,40,0,0" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" Width="768" AutomationProperties.HelpText="" Text="" AllowDrop="True" Height="42"/>
+        <TextBox x:Name="txtUri" HorizontalAlignment="Left" Margin="26,40,0,0" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" Width="768" AutomationProperties.HelpText="" Text="" AllowDrop="True" Height="62"/>
         <Label x:Name="lblConfigUri" Content="Select config/json file or paste KeyVault json directly into textbox and click &quot;Load&quot;" HorizontalAlignment="Left" Margin="26,14,0,0" VerticalAlignment="Top" Foreground="White"/>
         <Button x:Name="btnLoad" Content="Load" HorizontalAlignment="Left" Margin="821,62,0,0" VerticalAlignment="Top" Width="106" Click="btnLoad_Click" Background="#FF3F3F46" Foreground="White" BorderBrush="#FF171717" Height="20"/>
-        <Button x:Name="btnExportJson" Content="Export Json" HorizontalAlignment="Left" Margin="688,156,0,0" VerticalAlignment="Top" Width="106" Click="btnExportJson_Click" Foreground="White" Background="#FF3F3F46" BorderBrush="#FF1799BF"/>
-        <Label x:Name="lblStatus" Content="Status:" HorizontalAlignment="Left" Margin="27,80,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Button x:Name="btnExportJson" Content="Export Json" HorizontalAlignment="Left" Margin="688,157,0,0" VerticalAlignment="Top" Width="106" Click="btnExportJson_Click" Foreground="White" Background="#FF3F3F46" BorderBrush="#FF1799BF"/>
+        <Label x:Name="lblStatus" Content="Status:" HorizontalAlignment="Left" Margin="22,107,0,0" VerticalAlignment="Top" Foreground="White"/>
         <TextBox x:Name="txtFind" HorizontalAlignment="Left" Margin="26,133,0,0" Text="Find:" TextWrapping="Wrap" VerticalAlignment="Top" Width="509" GotFocus="FindTextBox_GotFocus" LostFocus="FindTextBox_LostFocus"/>
-        <TextBox x:Name="txtReplace" HorizontalAlignment="Left" Margin="27,158,0,0" Text="Replace:" TextWrapping="Wrap" VerticalAlignment="Top" Width="508" GotFocus="ReplaceTextBox_GotFocus" LostFocus="ReplaceTextBox_LostFocus"/>
-        <Button x:Name="btnReplace" Content="Replace" HorizontalAlignment="Left" Margin="557,156,0,0" VerticalAlignment="Top" Width="106" Click="btnReplace_Click" Background="#FF3F3F46" Foreground="#FFF4F5F7" BorderBrush="#FF171717" Height="20"/>
+        <TextBox x:Name="txtReplace" HorizontalAlignment="Left" Margin="27,159,0,0" Text="Replace:" TextWrapping="Wrap" VerticalAlignment="Top" Width="508" GotFocus="ReplaceTextBox_GotFocus" LostFocus="ReplaceTextBox_LostFocus"/>
+        <Button x:Name="btnReplace" Content="Replace" HorizontalAlignment="Left" Margin="559,157,0,0" VerticalAlignment="Top" Width="106" Click="btnReplace_Click" Background="#FF3F3F46" Foreground="#FFF4F5F7" BorderBrush="#FF171717" Height="20"/>
         <Button x:Name="btnBrowse" Content="Browse" HorizontalAlignment="Left" Margin="821,40,0,0" VerticalAlignment="Top" Width="106" Background="#FF3F3F46" Foreground="#FFF0F0F0" BorderBrush="#FF171717" Click="btnBrowse_Click" Height="20"/>
-        <Button x:Name="btnClearAll" Content="Clear All" HorizontalAlignment="Left" Margin="821,156,0,0" VerticalAlignment="Top" Width="106" Height="20" Background="#FF3F3F46" BorderBrush="#FF171717" Foreground="#FFF0F0F0" Click="btnClearAll_Click"/>
-        <Label x:Name="lblStatusMessage" Content="" HorizontalAlignment="Left" Margin="77,80,0,0" VerticalAlignment="Top" Foreground="Red"/>
+        <Button x:Name="btnClearAll" Content="Clear All" HorizontalAlignment="Left" Margin="821,84,0,0" VerticalAlignment="Top" Width="106" Height="20" Background="#FF3F3F46" BorderBrush="#FF171717" Foreground="#FFF0F0F0" Click="btnClearAll_Click"/>
+        <Label x:Name="lblStatusMessage" Content="" HorizontalAlignment="Left" Margin="72,107,0,0" VerticalAlignment="Top" Foreground="Red"/>
         <CheckBox x:Name="chkSelectAll" Content="Select All" HorizontalAlignment="Left" Margin="27,184,0,0" VerticalAlignment="Top" Foreground="#FFF0F0F0" Checked="chkSelectAll_Checked" Unchecked="chkSelectAll_Unchecked"/>
+        <Button x:Name="btnExportJson_Copy" Content="Export Json" HorizontalAlignment="Left" Margin="688,157,0,0" VerticalAlignment="Top" Width="106" Click="btnExportJson_Click" Foreground="White" Background="#FF3F3F46" BorderBrush="#FF1799BF"/>
+        <Button x:Name="btnCopyJson" Content="Quick Copy" HorizontalAlignment="Left" Margin="821,157,0,0" VerticalAlignment="Top" Width="106" Click="btnCopyJson_Click" Foreground="White" Background="#FF3F3F46" BorderBrush="#FF1799BF"/>
     </Grid>
 </Window>

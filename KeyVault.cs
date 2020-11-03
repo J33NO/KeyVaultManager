@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace KeyVaultManager
@@ -176,6 +177,19 @@ namespace KeyVaultManager
             {
                 string json = KeyVault.ConvertDictionaryToJson(keyVaults);
                 bool saveSuccessfully = KeyVault.SaveJson(json);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static void QuickCopy(List<KeyVaultModel> keyVaults)
+        {
+            try
+            {
+                string json = KeyVault.ConvertDictionaryToJson(keyVaults);
+                Clipboard.SetText(json);
             }
             catch (Exception ex)
             {
