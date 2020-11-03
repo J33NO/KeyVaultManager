@@ -126,7 +126,7 @@ namespace KeyVaultManager
                     List<DataGridModel> keyValues = KeyVault.ConvertConfig(configFileMap);
                     return keyValues;
                 }
-                else if (uri.Contains(".json"))
+                else if (uri.Contains(".json") || uri.Contains(".txt"))
                 {
                     using (StreamReader r = new StreamReader(uri))
                     {
