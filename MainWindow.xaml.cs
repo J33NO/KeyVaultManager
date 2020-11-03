@@ -221,5 +221,49 @@ namespace KeyVaultManager
                 }
             }
         }
+
+        private void btnCopyJson_Click(object sender, RoutedEventArgs e)
+        {
+            List<KeyVaultModel> keyVaults = new List<KeyVaultModel>();
+
+            try
+            {
+                if (dataGridConfigValues.ItemsSource != null)
+                {
+                    foreach (DataGridModel keyPair in dataGridConfigValues.ItemsSource)
+                    {
+                        if (keyPair.isSelected == true)
+                        {
+                            KeyVaultModel keyVault = new KeyVaultModel();
+                            keyVault.secretName = keyPair.key;
+                            keyVault.secretValue = keyPair.value;
+                            keyVaults.Add(keyVault);
+                        }
+                    }
+                    if (keyVaults.Count > 0)
+                    {
+
+                        KeyVault.QuickCopy(keyVaults);
+                        lblStatusMessage.Foreground = new SolidColorBrush(Colors.Green);
+                        lblStatusMessage.Content = "Selected values copied to clipboard.";
+                    }
+                    else
+                    {
+                        lblStatusMessage.Foreground = new SolidColorBrush(Colors.Red);
+                        lblStatusMessage.Content = "Must select at least one value pair to copy.";
+                    }
+                }
+                else
+                {
+                    lblStatusMessage.Foreground = new SolidColorBrush(Colors.Red);
+                    lblStatusMessage.Content = "No values to copy.";
+                }
+            }
+            catch (Exception ex)
+            {
+                lblStatusMessage.Foreground = new SolidColorBrush(Colors.Red);
+                lblStatusMessage.Content = ex.Message;
+            }
+        }
     }
 }
