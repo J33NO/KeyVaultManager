@@ -130,15 +130,23 @@ namespace KeyVaultManager
                 {
                     using (StreamReader r = new StreamReader(uri))
                     {
-                        string json = r.ReadToEnd();
-                        List<KeyVaultModel> keyVaultValues = JsonConvert.DeserializeObject<List<KeyVaultModel>>(json);
                         List<DataGridModel> keyValues = new List<DataGridModel>();
-                        foreach (KeyVaultModel item in keyVaultValues)
+                        string json = r.ReadToEnd();
+                        bool validJson = KeyVault.IsValidJson(txtUri.Text);
+                        if (validJson)
                         {
-                            DataGridModel kvm = new DataGridModel();
-                            kvm.key = item.secretName;
-                            kvm.value = item.secretValue;
-                            keyValues.Add(kvm);
+                            List<KeyVaultModel> keyVaultValues = JsonConvert.DeserializeObject<List<KeyVaultModel>>(json);
+                            foreach (KeyVaultModel item in keyVaultValues)
+                            {
+                                DataGridModel kvm = new DataGridModel();
+                                kvm.key = item.secretName;
+                                kvm.value = item.secretValue;
+                                keyValues.Add(kvm);
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception("Invalid format");
                         }
                         return keyValues;
                     }
