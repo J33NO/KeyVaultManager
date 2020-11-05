@@ -42,7 +42,7 @@ namespace KeyVaultManager
                     _dataGridValues = new List<DataGridModel>();
                     _dataGridValues = KeyVault.LoadFile(uri, txtUri);
                     dataGridConfigValues.ItemsSource = _dataGridValues;
-                    lblStatusMessage.Foreground = new SolidColorBrush(Colors.Green);
+                    lblStatusMessage.Foreground = new SolidColorBrush(Colors.LightGreen);
                     lblStatusMessage.Content = "Loaded Values Successfully.";
                 }
                 catch (Exception ex)
@@ -74,7 +74,7 @@ namespace KeyVaultManager
                     if (keyVaults.Count > 0)
                     {
                         KeyVault.Export(keyVaults);
-                        lblStatusMessage.Foreground = new SolidColorBrush(Colors.Green);
+                        lblStatusMessage.Foreground = new SolidColorBrush(Colors.LightGreen);
                         lblStatusMessage.Content = "Exported Successfully.";
                     }
                     else
@@ -254,7 +254,7 @@ namespace KeyVaultManager
                     {
 
                         KeyVault.QuickCopy(keyVaults);
-                        lblStatusMessage.Foreground = new SolidColorBrush(Colors.Green);
+                        lblStatusMessage.Foreground = new SolidColorBrush(Colors.LightGreen);
                         lblStatusMessage.Content = "Selected values copied to clipboard.";
                     }
                     else
