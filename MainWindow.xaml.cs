@@ -6,6 +6,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,8 @@ namespace KeyVaultManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<DataGridModel> _dataGridValues;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -36,8 +39,9 @@ namespace KeyVaultManager
             {
                 try
                 {
-                    List<DataGridModel> dataGridValues = KeyVault.LoadFile(uri, txtUri);
-                    dataGridConfigValues.ItemsSource = dataGridValues;
+                    _dataGridValues = new List<DataGridModel>();
+                    _dataGridValues = KeyVault.LoadFile(uri, txtUri);
+                    dataGridConfigValues.ItemsSource = _dataGridValues;
                     lblStatusMessage.Foreground = new SolidColorBrush(Colors.Green);
                     lblStatusMessage.Content = "Loaded Values Successfully.";
                 }
@@ -125,7 +129,7 @@ namespace KeyVaultManager
                 }
                 dataGridConfigValues.ItemsSource = newValues;
                 dataGridConfigValues.Items.Refresh();
-                lblStatusMessage.Foreground = new SolidColorBrush(Colors.Green);
+                lblStatusMessage.Foreground = new SolidColorBrush(Colors.LightGreen);
                 lblStatusMessage.Content = valuesReplaced + " values replaced.";
             }
             catch (Exception ex)
@@ -269,6 +273,66 @@ namespace KeyVaultManager
             {
                 lblStatusMessage.Foreground = new SolidColorBrush(Colors.Red);
                 lblStatusMessage.Content = ex.Message;
+            }
+        }
+
+        private void txtFind_KeyUp(object sender, KeyEventArgs e)
+        {
+            FindDataGridRow(dataGridConfigValues);
+        }
+
+        public void FindDataGridRow(DependencyObject obj)
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                DataGridRow lv = obj as DataGridRow;
+                if (lv != null)
+                {
+                    HighlightText(lv);
+                }
+                FindDataGridRow(VisualTreeHelper.GetChild(obj as DependencyObject, i));
+            }
+        }
+
+        private void HighlightText(Object itx)
+        {
+            if (itx != null)
+            {
+                if (itx is TextBlock)
+                {
+                    Regex regex = new Regex("(" + txtFind.Text + ")", RegexOptions.IgnoreCase);
+                    TextBlock tb = itx as TextBlock;
+                    if (txtFind.Text.Length == 0)
+                    {
+                        string str = tb.Text;
+                        tb.Inlines.Clear();
+                        tb.Inlines.Add(str);
+                        return;
+                    }
+                    string[] substrings = regex.Split(tb.Text);
+                    tb.Inlines.Clear();
+                    foreach (var item in substrings)
+                    {
+                        if (regex.Match(item).Success)
+                        {
+                            Run runx = new Run(item);
+                            runx.Background = Brushes.Yellow;
+                            tb.Inlines.Add(runx);
+                        }
+                        else
+                        {
+                            tb.Inlines.Add(item);
+                        }
+                    }
+                    return;
+                }
+                else
+                {
+                    for (int i = 0; i < VisualTreeHelper.GetChildrenCount(itx as DependencyObject); i++)
+                    {
+                        HighlightText(VisualTreeHelper.GetChild(itx as DependencyObject, i));
+                    }
+                }
             }
         }
     }

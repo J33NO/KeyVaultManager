@@ -131,7 +131,7 @@ namespace KeyVaultManager
                     {
                         List<DataGridModel> keyValues = new List<DataGridModel>();
                         string json = r.ReadToEnd();
-                        bool validJson = KeyVault.IsValidJson(txtUri.Text);
+                        bool validJson = KeyVault.IsValidJson(json);
                         if (validJson)
                         {
                             List<KeyVaultModel> keyVaultValues = JsonConvert.DeserializeObject<List<KeyVaultModel>>(json);
