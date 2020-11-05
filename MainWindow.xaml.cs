@@ -94,6 +94,7 @@ namespace KeyVaultManager
 
         private void btnReplace_Click(object sender, RoutedEventArgs e)
         {
+            int valuesReplaced = 0;
             string findValue = txtFind.Text;
             string replaceValue = txtReplace.Text;
             List<DataGridModel> newValues = new List<DataGridModel>();
@@ -110,6 +111,7 @@ namespace KeyVaultManager
                             DataGridModel newDataGridModel = new DataGridModel();
                             newDataGridModel = dgm;
                             newValues.Add(newDataGridModel);
+                            valuesReplaced += 1;
                         }
                         else
                         {
@@ -123,7 +125,8 @@ namespace KeyVaultManager
                 }
                 dataGridConfigValues.ItemsSource = newValues;
                 dataGridConfigValues.Items.Refresh();
-                lblStatusMessage.Content = "";
+                lblStatusMessage.Foreground = new SolidColorBrush(Colors.Green);
+                lblStatusMessage.Content = valuesReplaced + " values replaced.";
             }
             catch (Exception ex)
             {
@@ -136,16 +139,19 @@ namespace KeyVaultManager
         private void btnBrowse_Click(object sender, RoutedEventArgs e)
         {
             string uri = KeyVault.BrowseFile();
-            try
+            if(uri != "")
             {
-                List<DataGridModel> dataGridValues = KeyVault.LoadFile(uri, txtUri);
-                dataGridConfigValues.ItemsSource = dataGridValues;
-                lblStatusMessage.Content = "";
-            }
-            catch (Exception ex)
-            {
-                lblStatusMessage.Foreground = new SolidColorBrush(Colors.Red);
-                lblStatusMessage.Content = ex.Message;
+                try
+                {
+                    List<DataGridModel> dataGridValues = KeyVault.LoadFile(uri, txtUri);
+                    dataGridConfigValues.ItemsSource = dataGridValues;
+                    lblStatusMessage.Content = "";
+                }
+                catch (Exception ex)
+                {
+                    lblStatusMessage.Foreground = new SolidColorBrush(Colors.Red);
+                    lblStatusMessage.Content = ex.Message;
+                }
             }
         }
 
