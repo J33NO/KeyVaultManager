@@ -21,7 +21,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <TextBox x:Name="txtUri" HorizontalAlignment="Left" Margin="26,40,0,0" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" Width="768" AutomationProperties.HelpText="" Text="" AllowDrop="True" Height="62"/>
-        <Label x:Name="lblConfigUri" Content="Select config/json file or paste KeyVault json directly into textbox and click &quot;Load&quot;" HorizontalAlignment="Left" Margin="26,14,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="lblConfigUri" Content="Paste KeyVault json directly into box or click &quot;browse&quot; to select .config/xml file to load values from." HorizontalAlignment="Left" Margin="26,14,0,0" VerticalAlignment="Top" Foreground="White"/>
         <Button x:Name="btnLoad" Content="Load" HorizontalAlignment="Left" Margin="821,62,0,0" VerticalAlignment="Top" Width="106" Click="btnLoad_Click" Background="#FF3F3F46" Foreground="White" BorderBrush="#FF171717" Height="20"/>
         <Button x:Name="btnExportJson" Content="Export Json" HorizontalAlignment="Left" Margin="688,157,0,0" VerticalAlignment="Top" Width="106" Click="btnExportJson_Click" Foreground="White" Background="#FF3F3F46" BorderBrush="#FF1799BF"/>
         <Label x:Name="lblStatus" Content="Status:" HorizontalAlignment="Left" Margin="22,107,0,0" VerticalAlignment="Top" Foreground="White"/>

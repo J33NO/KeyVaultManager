@@ -15,7 +15,6 @@ namespace KeyVaultManager
 {
     public class KeyVault
     {
-
         public static List<DataGridModel> ConvertConfig(ExeConfigurationFileMap xml)
         {
             List<DataGridModel> keyValues = new List<DataGridModel>();
