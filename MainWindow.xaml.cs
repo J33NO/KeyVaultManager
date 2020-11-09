@@ -278,7 +278,7 @@ namespace KeyVaultManager
 
         private void txtFind_KeyUp(object sender, KeyEventArgs e)
         {
-            FindDataGridRow(dataGridConfigValues);
+            //FindDataGridRow(dataGridConfigValues);
         }
 
         public void FindDataGridRow(DependencyObject obj)
